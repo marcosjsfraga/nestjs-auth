@@ -7,23 +7,23 @@ import { User } from './entities/user.entity';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly prisma: PrismaService) {}
+    constructor(private readonly prisma: PrismaService) {}
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
-    const data: Prisma.UserCreateInput = {
-      ...createUserDto,
-      password: await bcrypt.hash(createUserDto.password, 10),
-    };
+    async create(createUserDto: CreateUserDto): Promise<User> {
+        const data: Prisma.UserCreateInput = {
+            ...createUserDto,
+            password: await bcrypt.hash(createUserDto.password, 10),
+        };
 
-    const createdUser = await this.prisma.user.create({ data });
+        const createdUser = await this.prisma.user.create({ data });
 
-    return {
-      ...createdUser,
-      password: undefined,
-    };
-  }
+        return {
+            ...createdUser,
+            password: undefined,
+        };
+    }
 
-  findByEmail(email: string) {
-    return this.prisma.user.findUnique({ where: { email } });
-  }
+    findByEmail(email: string) {
+        return this.prisma.user.findUnique({ where: { email } });
+    }
 }
