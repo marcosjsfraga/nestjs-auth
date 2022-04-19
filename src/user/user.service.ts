@@ -26,4 +26,20 @@ export class UserService {
     findByEmail(email: string) {
         return this.prisma.user.findUnique({ where: { email } });
     }
+
+    findAll() {
+        return this.prisma.user.findMany();
+    }
+
+    findOne(id: number) {
+        return this.prisma.user.findFirst({ where: { id } });
+    }
+
+    // update(id: number, updateUserDto: UpdateUserDto) {
+    //   return `This action updates a #${id} user`;
+    // }
+
+    remove(id: number) {
+        return `This action removes a #${id} user`;
+    }
 }
